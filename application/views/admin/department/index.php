@@ -1,0 +1,3 @@
+<?
+printarray( $departments);
+?>
