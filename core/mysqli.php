@@ -65,14 +65,18 @@ class db extends mysqli {
             if (mysqli_connect_error()) {
                 $msg = 'Ошибка подключения: '.$this->errnoText(mysqli_connect_errno()).' (host: '.$host.'; user: '.$user.'; db: '.$db.')';
                 echo "\n<br>".$msg."<br>\n";
+                die;
             }
             $this->query = new stdClass();
             $this->query->history = array();
             $this->insert_queue_list = array();
             $this->query->count = 0;
+            var_dump($config);
+            die;
         } else {
             $msg = 'Ошибка запуска класса: не все параметры заданны.';
             echo "\n<br>".$msg."<br>\n";
+            die;
         }
     }
 
