@@ -28,7 +28,14 @@ class Department extends Core_controller {
     }
 
     public function adding() {
-        $this->db->insert("groups",$_POST['department']);
+        $groupid = $this->db->insert("groups", $_POST['department']);
+        echo $this->db->query->last;
+        $this->db->insert("pincode",array(
+            'groupid' => $groupid,
+            'pincode' => $_POST['pincode'],
+            'grouptype' => $_POST['grouptype']
+        ));
+        echo $this->db->query->last;
         $this->index();
     }
 
@@ -39,7 +46,11 @@ class Department extends Core_controller {
         printarray($numbers);
         $this->view(
             array(
-                'view' => 'department/edit'
+                'view' => 'department/edit',
+                'var' => array(
+                    'department' => $department,
+                    'numbers' => $numbers
+                )
             )
         );
     }
