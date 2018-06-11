@@ -1,5 +1,5 @@
 <?php
-
+include("internal_config.php");
 
 /**
  * Created by Unix develop team.
@@ -21,7 +21,7 @@ $application_folder = 'application';
 
 $pub_folder = 'pub';
 
-$core_dir = 'tools';
+$core_dir = 'ringer';
 
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 1);
@@ -40,12 +40,7 @@ define('SITE_TITLE', '');
  * Mysql db config
  */
 define('db_lib', libs.'mysql.php');
-$_config['mysql'] = array(
-    'host' => 'localhost',
-    'user' => 'test',
-    'password' => 'test',
-    'base' => 'callwaytest'
-);
+$_config['mysql'] = $config["mysql"];
 
 ///////////////////////////////////////////////////////////////
 /**
