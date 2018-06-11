@@ -20,7 +20,7 @@
         <tr>
             <th>Тип:&nbsp;</th>
             <td>
-                <select name="grouptype">
+                <select name="department[grouptype]">
                     <?
                         if($pincode['grouptype'] == 1) {
                             $one="selected";
@@ -41,3 +41,26 @@
         </tr>
     </table>
 </form>
+<form method="post" action="<?=baseurl('department/addnumber/')?>">
+<input name="number[groupid]" class="form-control" value="<?=$department['groupid']?>" type=hidden>
+    <table class="table  table-striped" style="width: 500px">
+        <tr>
+            <th>Номер абонента:&nbsp;</th>
+            <td><input name="number[phone]" class="form-control" ></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td><button class="btn btn-primary">Добавить</button></td>
+        </tr>
+    </table>
+</form>
+
+<table class="table  table-striped" style="width: 500px">
+<?php
+    foreach($numbers as $key=>$data){
+        echo "<tr><td>".$data['phone']."</td><td>";
+        echo "<a href=\"".baseurl('department/deletenumber/'.$department['groupid']."/".$data['numberid'])."\">Удалить</a></td></tr>";
+    }
+?>
+
+</table>

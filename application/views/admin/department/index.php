@@ -1,5 +1,5 @@
 <?
-printarray($departments);
+//printarray($departments);
 ?>
 <a href="<?=baseurl('department/add/')?>" class="btn btn-success">Создать учреждение</a>
 
