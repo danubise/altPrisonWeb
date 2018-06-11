@@ -41,6 +41,7 @@ class Department extends Core_controller {
 
     public function edit($groupid) {
         $department = $this->db->select("* from `groups` where groupid='".$groupid."'");
+        $pincode = $this->db->select("* from `pincode` where groupid='".$groupid."'");
         $numbers = $this->db->select("* from `phonenumbers` where groupid='".$groupid."'");
         printarray($department);
         printarray($numbers);
@@ -48,11 +49,24 @@ class Department extends Core_controller {
             array(
                 'view' => 'department/edit',
                 'var' => array(
-                    'department' => $department,
-                    'numbers' => $numbers
+                    'department' => $department[0],
+                    'numbers' => $numbers,
+                    'pincode' => $pincode[0]
                 )
             )
         );
+    }
+
+    public function editing() {
+        $department = $_POST['department'];
+        $this->db->update("groups", array(
+            'name' =>  $department['name'],
+            'emails' => $department['emails']) , "groupid='".$department['groupid']."'");
+        $this->db->update("pincode", array(
+            'pincode' => $department['pincode'],
+            'grouptype' => $department['grouptype']), "groupid='".$department['groupid']."'");
+
+        $this->index();
     }
 
 
