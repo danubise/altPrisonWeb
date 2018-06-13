@@ -78,8 +78,7 @@ class Department extends Core_controller {
     }
 
     public function editing() {
-
-        if(trim($_POST['pincode']) == "" || trim($_POST['department']['name']) == "" || trim($_POST['department']['emails']) == ""){
+        if(trim($_POST['department']['pincode']) == "" || trim($_POST['department']['name']) == "" || trim($_POST['department']['emails']) == ""){
             $this->index();
             return;
         }
