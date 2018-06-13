@@ -14,7 +14,7 @@
             <td><input name="department[emails]" value="<?=$department['emails']?>"></td>
         </tr>
         <tr>
-            <th>Пинкоде:&nbsp;</th>
+            <th>Пинкод:&nbsp;</th>
             <td><input name="department[pincode]" value="<?=$pincode['pincode']?>"></td>
         </tr>
         <tr>
@@ -57,9 +57,11 @@
 
 <table class="table  table-striped" style="width: 500px">
 <?php
-    foreach($numbers as $key=>$data){
-        echo "<tr><td>".$data['phone']."</td><td>";
-        echo "<a href=\"".baseurl('department/deletenumber/'.$department['groupid']."/".$data['numberid'])."\">Удалить</a></td></tr>";
+    if($numbers !== false){
+        foreach($numbers as $key=>$data){
+            echo "<tr><td>".$data['phone']."</td><td>";
+            echo "<a href=\"".baseurl('department/deletenumber/'.$department['groupid']."/".$data['numberid'])."\">Удалить</a></td></tr>";
+        }
     }
 ?>
 

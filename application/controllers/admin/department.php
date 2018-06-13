@@ -27,15 +27,38 @@ class Department extends Core_controller {
     }
 
     public function adding() {
-        $groupid = $this->db->insert("groups", $_POST['department']);
-        //echo $this->db->query->last;
-        $this->db->insert("pincode",array(
-            'groupid' => $groupid,
-            'pincode' => $_POST['pincode'],
-            'grouptype' => $_POST['grouptype']
-        ));
+        $errorMessage="";
 
-        $this->index();
+        if(trim($_POST['pincode']) == "" || trim($_POST['department']['name']) == "" || trim($_POST['department']['emails']) == ""){
+            $errorMessage ="Ошибка ввода данных";
+        }else{
+
+            $pincodeexist = $this->db->select("count(pincode) from `pincode` where `pincode`='".$_POST['pincode']."'",false);
+            if($pincodeexist == 0){
+                $groupid = $this->db->insert("groups", $_POST['department']);
+                //echo $this->db->query->last;
+                $this->db->insert("pincode",array(
+                    'groupid' => $groupid,
+                    'pincode' => $_POST['pincode'],
+                    'grouptype' => $_POST['grouptype']
+                ));
+                $this->index();
+                return;
+            }else{
+                $errorMessage="Указанный пинкод уже присутствует в базе";
+            }
+        }
+
+        $this->view(
+           array(
+               'view' => 'department/add',
+               'var' => array(
+                     'formdata' => $_POST,
+                     'errorMessage' => $errorMessage
+                 )
+           )
+        );
+
     }
 
     public function edit($groupid) {
@@ -55,6 +78,16 @@ class Department extends Core_controller {
     }
 
     public function editing() {
+
+        if(trim($_POST['pincode']) == "" || trim($_POST['department']['name']) == "" || trim($_POST['department']['emails']) == ""){
+            $this->index();
+            return;
+        }
+        $pincodeexist = $this->db->select("count(pincode) from `pincode` where `pincode`='".$_POST['pincode']."'",false);
+        if($pincodeexist == 1){
+            $this->index();
+            return;
+        }
         $department = $_POST['department'];
         //printarray($department);
         $this->db->update("groups", array(
