@@ -109,6 +109,9 @@ class Department extends Core_controller {
 
     public function delete($groupid) {
         $this->db->delete("from groups where groupid='".$groupid."'");
+        $this->db->delete("from pincode where groupid='".$groupid."'");
+        $this->db->delete("from phonenumbers where groupid='".$groupid."'");
+        $this->db->delete("from schedule where groupid='".$groupid."'");
         $this->index();
     }
 
