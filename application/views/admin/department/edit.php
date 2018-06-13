@@ -47,10 +47,12 @@
         <tr>
             <th>Номер абонента:&nbsp;</th>
             <td><input name="number[phone]" class="form-control" ></td>
+            <td>&nbsp;<input name="number[edelveys]" value="1" type="checkbox" >&nbsp;Эдэлвейс</td>
         </tr>
         <tr>
-            <th>&nbsp;</th>
+            <td>&nbsp;</td>
             <td><button class="btn btn-primary">Добавить</button></td>
+            <td>&nbsp;</td>
         </tr>
     </table>
 </form>
@@ -59,7 +61,12 @@
 <?php
     if($numbers !== false){
         foreach($numbers as $key=>$data){
-            echo "<tr><td>".$data['phone']."</td><td>";
+        if($data['edelveys']=="1"){
+            $edlv="edlv";
+        } else {
+            $edlv="";
+         }
+            echo "<tr><td>".$data['phone']."</td><td>".$edlv."</td><td>";
             echo "<a href=\"".baseurl('department/deletenumber/'.$department['groupid']."/".$data['numberid'])."\">Удалить</a></td></tr>";
         }
     }
