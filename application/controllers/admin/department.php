@@ -101,7 +101,24 @@ class Department extends Core_controller {
     }
 
     public function addnumber(){
-        $groupid = $this->db->insert("phonenumbers", $_POST['number']);
+        if(trim($_POST['number']['phone']) != ""){
+            if (strpos($_POST['number']['phone'],",") === false){
+                $groupid = $this->db->insert("phonenumbers", $_POST['number']);
+            }else{
+                $edelveys="";
+                if(isset($_POST['number']['edelveys'])){
+                    $edelveys=$_POST['number']['edelveys'];
+                }
+                $numbers=explode(",",$_POST['number']['phone']);
+                foreach($numbers as $key=>$number){
+                    $this->db->insert("phonenumbers", array(
+                        'edelveys'=>$edelveys,
+                        'phone'=>$number,
+                        'groupid'=>$_POST['number']['groupid']
+                        ));
+                }
+            }
+        }
         $this->edit($_POST['number']['groupid']);
     }
 
