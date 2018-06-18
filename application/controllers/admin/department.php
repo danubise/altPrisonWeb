@@ -102,7 +102,7 @@ class Department extends Core_controller {
 
     public function addnumber(){
         if(trim($_POST['number']['phone']) != ""){
-            if (strpos($_POST['number']['phone'],",") === false){
+            if (strpos($_POST['number']['phone'],",") === false && trim($_POST['number']['phone']) == "" && ctype_digit($number)){
                 $groupid = $this->db->insert("phonenumbers", $_POST['number']);
             }else{
                 $edelveys="";
@@ -111,11 +111,14 @@ class Department extends Core_controller {
                 }
                 $numbers=explode(",",$_POST['number']['phone']);
                 foreach($numbers as $key=>$number){
-                    $this->db->insert("phonenumbers", array(
-                        'edelveys'=>$edelveys,
-                        'phone'=>trim($number),
-                        'groupid'=>$_POST['number']['groupid']
-                        ));
+                    $number=trim($number);
+                    if( $number != "" && ctype_digit($number)){
+                        $this->db->insert("phonenumbers", array(
+                            'edelveys'=>$edelveys,
+                            'phone'=> $number,
+                            'groupid'=>$_POST['number']['groupid']
+                            ));
+                        }
                 }
             }
         }
