@@ -113,7 +113,7 @@ class Department extends Core_controller {
                 foreach($numbers as $key=>$number){
                     $this->db->insert("phonenumbers", array(
                         'edelveys'=>$edelveys,
-                        'phone'=>$number,
+                        'phone'=>trim($number),
                         'groupid'=>$_POST['number']['groupid']
                         ));
                 }
