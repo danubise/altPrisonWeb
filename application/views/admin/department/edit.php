@@ -60,13 +60,15 @@
 <table class="table  table-striped" style="width: 500px">
 <?php
     if($numbers !== false){
+        $i=0;
         foreach($numbers as $key=>$data){
+        $i++;
         if($data['edelveys']=="1"){
             $edlv="edlv";
         } else {
             $edlv="";
          }
-            echo "<tr><td>".$data['phone']."</td><td>".$edlv."</td><td>";
+            echo "<tr><td>".$i."</td><td>".$data['phone']."</td><td>".$edlv."</td><td>";
             echo "<a href=\"".baseurl('department/deletenumber/'.$department['groupid']."/".$data['numberid'])."\">Удалить</a></td></tr>";
         }
     }
