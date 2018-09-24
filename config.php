@@ -21,7 +21,7 @@ $application_folder = 'application';
 
 $pub_folder = 'pub';
 
-$core_dir = 'ringer';
+$core_dir = 'informator';
 
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 1);
