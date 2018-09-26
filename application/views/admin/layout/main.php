@@ -29,10 +29,9 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <li><a href="<?=baseurl("department")?>">Управления</a></li>
+                <li><a href="<?=baseurl("voicerecords")?>">Звуковые записи</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?=baseurl("settings")?>"><i class="fa fa-cogs"></i> Настройки</a></li>
                 <li><a href="<?=baseurl('home/logout')?>"><i class="fa fa-power-off"></i> Выход</a></li>
             </ul>
 

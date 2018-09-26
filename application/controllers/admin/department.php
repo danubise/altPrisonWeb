@@ -1,6 +1,6 @@
 <?
 
-class Department extends Core_controller {
+class Voice extends Core_controller {
     public function __construct() {
         parent::__construct();
         $this->module_name = 'Главная страница';
