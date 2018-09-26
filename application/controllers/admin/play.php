@@ -34,7 +34,8 @@ class Play extends Core_controller
         printarray($_POST);
         $phonenumbers = $_POST['phonenumbers'];
         $voicerecord = $this->db->select ("`filename` from `voicerecords` where id='". $_POST['voicerecordid']."'",false);
-        $this->db->insert("schedule", array(
+
+        $scheduleid = $this->db->insert("schedule", array(
             "groupid" => $this->groupid,
             "voicefilename" => $voicerecord ,
             "status" => 1
@@ -44,15 +45,17 @@ class Play extends Core_controller
             $this->db->update("schedule", array("status" => 2), "scheduleid=".$_POST['voicerecordid']);
             //$this->log->debug($this->db->query->last);
             foreach($phonenumbers as $numberid => $numberData){
+                //printarray($numberData);
                 $this->db->insert("dial", array(
                     "groupid" => $_POST['voicerecordid'],
-                    "phonenumber" => $numberData['phone'],
+                    "phonenumber" => $numberData,
                     "status" => 0,
-                    "scheduleid" => $_POST['voicerecordid'],
+                    "scheduleid" => $scheduleid,
                     "dialcount" => 0,
                     "action" => 0,
                     "voicerecord" => $voicerecord
                 ));
+                //echo $this->db->query->last;
                 //$this->log->debug($this->db->query->last);
             }
         }

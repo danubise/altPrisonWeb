@@ -5,7 +5,7 @@
             <td><input name="number[phone]" class="form-control" value="<?=$formdata['number']['phone']?>"></td>
         </tr>
         <tr>
-            <th>Получатели:&nbsp;</th>
+            <th>ФИО:&nbsp;</th>
             <td><input name="number[description]" value="<?=$formdata['number']['description']?>"></td>
         </tr>
 

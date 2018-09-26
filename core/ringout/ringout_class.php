@@ -1,6 +1,6 @@
 <?php
-require_once ("Classes/PHPMailer-master/class.phpmailer.php");
-require_once ("report_class.php");
+//require_once ("Classes/PHPMailer-master/class.phpmailer.php");
+//require_once ("report_class.php");
 
 class Ringout{
     private $config=null;
@@ -51,49 +51,49 @@ class Ringout{
 
     }
 
-    function sendemail($taskid , $filename){
+//    function sendemail($taskid , $filename){
+////        $this->db->query('SET NAMES "utf8"');
+//        $this->log->info("Send email for task id ".$taskid);
+//        $email = new PHPMailer();
+//        $email->CharSet = 'UTF-8';
+//        $email->From      = $this->config['emailFrom'];
+//        $email->FromName  = $this->config['emailFrom'];
+//        $email->Subject   = $this->config['emailTheme'];
+//        $email->Body      = $this->config['emailBody'];
 //        $this->db->query('SET NAMES "utf8"');
-        $this->log->info("Send email for task id ".$taskid);
-        $email = new PHPMailer();
-        $email->CharSet = 'UTF-8';
-        $email->From      = $this->config['emailFrom'];
-        $email->FromName  = $this->config['emailFrom'];
-        $email->Subject   = $this->config['emailTheme'];
-        $email->Body      = $this->config['emailBody'];
-        $this->db->query('SET NAMES "utf8"');
-        $emailAddresses = $this->db->select(" g.emails from groups as g , schedule as s  where s.groupid=g.groupid AND s.scheduleid=".$taskid,false);
-        $this->log->debug($this->db->query->last);
-        $groupName = $this->db->select(" g.name from groups as g , schedule as s  where s.groupid=g.groupid AND s.scheduleid=".$taskid,false);
-        $this->log->debug($this->db->query->last);
-        $this->log->debug("Encoding type = ".mb_detect_encoding($groupName, mb_detect_order(), true));
-
-        $mails=explode(",",$emailAddresses);
-        foreach($mails as $emailaddress) {
-            $email->AddAddress($emailaddress);
-        }
-        $attachedFileName = $groupName.".xls";
-        $this->log->debug("Attached file name : ".$attachedFileName);
-        $email->AddAttachment( $filename , $attachedFileName);
-
-        if(!$email->Send()){
-            $this->log->error( "Message could not be sent.");
-            $this->log->error( "Mailer Error: " . $email->ErrorInfo);
-            $update = array(
-                "sendEmail" => "9"
-            );
-            $this->db->update("schedule",$update, "`scheduleid` = '" .$taskid. "'");
-            $this->log->debug($this->db->query->last);
-            $this->log->error( "Message has not sent");
-        }else {
-            $update = array(
-                "sendEmail" => "1"
-            );
-            $this->db->update("schedule",$update, "`scheduleid` = '" .$taskid. "'");
-            $this->log->debug($this->db->query->last);
-            $this->log->info( "Message has been sent to ".$emailAddresses);
-        }
-
-    }
+//        $emailAddresses = $this->db->select(" g.emails from groups as g , schedule as s  where s.groupid=g.groupid AND s.scheduleid=".$taskid,false);
+//        $this->log->debug($this->db->query->last);
+//        $groupName = $this->db->select(" g.name from groups as g , schedule as s  where s.groupid=g.groupid AND s.scheduleid=".$taskid,false);
+//        $this->log->debug($this->db->query->last);
+//        $this->log->debug("Encoding type = ".mb_detect_encoding($groupName, mb_detect_order(), true));
+//
+//        $mails=explode(",",$emailAddresses);
+//        foreach($mails as $emailaddress) {
+//            $email->AddAddress($emailaddress);
+//        }
+//        $attachedFileName = $groupName.".xls";
+//        $this->log->debug("Attached file name : ".$attachedFileName);
+//        $email->AddAttachment( $filename , $attachedFileName);
+//
+//        if(!$email->Send()){
+//            $this->log->error( "Message could not be sent.");
+//            $this->log->error( "Mailer Error: " . $email->ErrorInfo);
+//            $update = array(
+//                "sendEmail" => "9"
+//            );
+//            $this->db->update("schedule",$update, "`scheduleid` = '" .$taskid. "'");
+//            $this->log->debug($this->db->query->last);
+//            $this->log->error( "Message has not sent");
+//        }else {
+//            $update = array(
+//                "sendEmail" => "1"
+//            );
+//            $this->db->update("schedule",$update, "`scheduleid` = '" .$taskid. "'");
+//            $this->log->debug($this->db->query->last);
+//            $this->log->info( "Message has been sent to ".$emailAddresses);
+//        }
+//
+//    }
 
     function checkForCompleteTask(){
         $this->log->info("Checking for complete task");
@@ -112,19 +112,19 @@ class Ringout{
                 if($countInprogressNumbers == 0 ){
                     $this->db->update("schedule", array("status" => 3), "scheduleid=".$scheduleid);
                     $this->log->debug($this->db->query->last);
-                    $this->createReport($scheduleid);
+                    //$this->createReport($scheduleid);
                 }
             }
         }
     }
 
-    function createReport($taskid){
-        $this->log->info("Creating report for task id ".$taskid);
-        $report = new Report($this->config, $taskid);
-        $filename = $report->makeReport();
-        //$this->log->info("Sending report file :'".$filename."'");
-        $this->sendemail($taskid, $filename);
-    }
+//    function createReport($taskid){
+//        $this->log->info("Creating report for task id ".$taskid);
+//        $report = new Report($this->config, $taskid);
+//        $filename = $report->makeReport();
+//        //$this->log->info("Sending report file :'".$filename."'");
+//        $this->sendemail($taskid, $filename);
+//    }
 
     function addNumberGroupByTask($tasks){
         foreach ($tasks as $key=>$taskArray){
