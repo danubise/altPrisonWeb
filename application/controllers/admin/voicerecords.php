@@ -64,4 +64,9 @@ class Voicerecords extends Core_controller
             , "id='".$voicerecord['id']."'");
         $this->index();
     }
+
+    public function delete($id) {
+        $this->db->delete("from voicerecords where `id`='".$id."'");
+        $this->index();
+    }
 }

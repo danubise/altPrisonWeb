@@ -14,13 +14,14 @@
     </tr>
     <?php
     $i=1;
-    foreach($voicerecords as $key=>$data){
-    echo "<tr><td>".($i++)."</td>";
-    echo "<td>".$data['description']."</td><td>";
-    echo "<a href=\"".baseurl('voicerecords/play/'.$data['id'])."\">Проиграть</a> / ";
-    echo "<a href=\"".baseurl('voicerecords/edit/'.$data['id'])."\">Изменить</a> / ";
-    echo "<a href=\"".baseurl('voicerecords/delete/'.$data['id'])."\">Удалить</a></td></tr>";
-
+    if(is_array($voicerecords)){
+    foreach($voicerecords as $key=>$data) {
+        echo "<tr><td>" . ($i++) . "</td>";
+        echo "<td>" . $data['description'] . "</td><td>";
+        echo "<a href=\"" . baseurl('voicerecords/play/' . $data['id']) . "\">Проиграть</a> / ";
+        echo "<a href=\"" . baseurl('voicerecords/edit/' . $data['id']) . "\">Изменить</a> / ";
+        echo "<a href=\"" . baseurl('voicerecords/delete/' . $data['id']) . "\">Удалить</a></td></tr>";
+    }
 
     }
     ?>
