@@ -31,7 +31,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="<?=baseurl("voicerecords")?>">Звуковые записи</a></li>
                 <li><a href="<?=baseurl("phonenumbers")?>">Телефонные номера</a></li>
-                <li><a href="<?=baseurl("reports")?>">Отчеты</a></li>
+                <li><a href="<?=baseurl("reports")?>">Отчет</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?=baseurl('home/logout')?>"><i class="fa fa-power-off"></i> Выход</a></li>
