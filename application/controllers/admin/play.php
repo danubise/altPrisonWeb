@@ -60,6 +60,6 @@ class Play extends Core_controller
             }
         }
 
-        //header('Location: '.baseurl()."voicerecords");
+        header('Location: '.baseurl()."voicerecords");
     }
 }

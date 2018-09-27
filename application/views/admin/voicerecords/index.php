@@ -18,7 +18,7 @@
         foreach($voicerecords as $key=>$data) {
             echo "<tr><td>" . ($i++) . "</td>";
             echo "<td>" . $data['description'] . "</td><td>";
-            echo "<a href=\"" . baseurl('play/index/' . $data['id']) . "\">Проиграть</a> / ";
+            echo "<a href=\"" . baseurl('play/index/' . $data['id']) . "\">Прозвонить</a> / ";
             echo "<a href=\"" . baseurl('voicerecords/edit/' . $data['id']) . "\">Изменить</a> / ";
             echo "<a href=\"" . baseurl('voicerecords/delete/' . $data['id']) . "\">Удалить</a></td></tr>";
         }

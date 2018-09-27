@@ -18,7 +18,7 @@ class Voicerecords extends Core_controller
 
     public function index()
     {
-        $voicerecords = $this->db->select("* from `voicerecords`");
+        $voicerecords = $this->db->select("* from `voicerecords` ORDER BY id DESC");
         $this->view(
             array(
                 'view' => 'voicerecords/index',
@@ -66,7 +66,11 @@ class Voicerecords extends Core_controller
     }
 
     public function delete($id) {
-        $this->db->delete("from voicerecords where `id`='".$id."'");
+        $filepath = $this->db->select("filepath FROM voicerecords WHERE `id`='".$id."'",false);
+        $this->db->delete("FROM voicerecords WHERE `id`='".$id."'");
+        if (file_exists($filepath)) {
+            unlink($filepath);
+        }
         $this->index();
     }
 }
