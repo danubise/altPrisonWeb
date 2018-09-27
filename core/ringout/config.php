@@ -18,6 +18,11 @@ $config['maxMakeCallsInOneStep'] = 3;
 $config['sleepTimeCallOriginate'] = 1; //время паузы для генерации новых звонков
 $config['manager_host']="localhost";
 $config['manager_port']=5038;
+$config['soundepath']="/var/lib/asterisk/sounds/";
+$config['newmessagepath']="ringout/";
+$config['newmessagename']="newmessage";
+$config['newmessageext']=".wav";
+
 //$config['manager_login']="";
 //$config['manager_password']="";
 //$config['emailFrom']="";

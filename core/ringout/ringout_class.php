@@ -18,7 +18,20 @@ class Ringout{
         $this->log->info( "Start Ringout service" );
         $this->ami = new Ami();
     }
+    public function listened(){
+        $this->log->info("Start Listened process");
+        $this->agi = new AGI();
+        $this->agi->conlog("Hangup process");
+        $dialid=$this->agi->request['agi_arg_1'];
 
+        $this->log->info("Call to ".$dialid." status LISTENED (static)");
+
+            $setvalue = array('action' => 0, 'status' => 2);
+
+        $this->db->update( "dial", $setvalue, "dialid=".$dialid);
+        $this->log->debug($this->db->query->last);
+        return;
+    }
     public function hangup(){
         $this->log->info("Start Hangup process");
         $this->agi = new AGI();
