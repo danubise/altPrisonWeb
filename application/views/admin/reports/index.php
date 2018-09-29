@@ -8,25 +8,31 @@
 ?>
 <table class="table table-striped" >
     <tr><th>
-            Номер
+             Дата
         </th>
         <th>
-            Статус
+            Сообщение
         </th>
+        <th>
+             Нет ответа
+        </th>
+        <th>
+            Ответ
+        </th>
+        <th>
+            Прослушано
+        </th>
+
     </tr>
     <?php
-    if(is_array($allNumbersByScheduleId)){
-        foreach ($allNumbersByScheduleId as $key=>$data){
+    if(is_array($schedules)){
+        foreach ($schedules as $key=>$data){
 
-            echo "<tr><td>".$data['phonenumber']."</td>";
-            $status = "Нет ответа";
-            if($data['status'] == 1){
-                $status = "Ответ";
-            }
-            if($data['status'] == 2){
-                $status = "Прослушал";
-            }
-            echo "<td>".$status."</td></tr>";
+            echo "<tr><td>".$data['datetime']."</td>
+                <td><a href=\"" . baseurl('detailreport/index/' . $data['scheduleid']) ."\" >".$data['description']."</a></td>
+                <td>".$data['noanswered']."</td>
+                <td>".$data['answered']."</td>
+                <td>".$data['listened']."</td></tr>";
         }
     }
     ?>

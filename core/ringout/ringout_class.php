@@ -9,6 +9,7 @@ class Ringout{
     private $ami=null;
     private $socket=null;
     private $agi=null;
+    private $maxRecallCount = 3;
 
     public function __construct($config=""){
         $this->config = $config;
@@ -17,6 +18,9 @@ class Ringout{
         $this->log->SetGlobalIndex("RINGOUT");
         $this->log->info( "Start Ringout service" );
         $this->ami = new Ami();
+        if(isset($config['maxRecallCount'])) {
+            $this->maxRecallCount = $config['maxRecallCount'];
+        }
     }
     public function listened(){
         $this->log->info("Start Listened process");
@@ -117,7 +121,7 @@ class Ringout{
             foreach ($activeTask as $key=>$scheduleid){
                 $this->log->info("Task with id ".$scheduleid." in progress");
                 $countInprogressNumbers = $this->db->select(" count(*) from schedule as s,dial as d where
-                    s.scheduleid = d.scheduleid AND s.status=2 AND d.status=0 AND (d.dialcount < 3 OR d.action=1)
+                    s.scheduleid = d.scheduleid AND s.status=2 AND d.status=0 AND (d.dialcount < ".$this->maxRecallCount." OR d.action=1)
                     AND s.scheduleid=".$scheduleid, false);
 
                 $this->log->debug($this->db->query->last);
@@ -272,7 +276,7 @@ class Ringout{
         $this->log->info("Concurrent calls = ".$inDialCall);
         $limit = $this->config['maxConcurrentCalls'] - $inDialCall;
         $this->log->info("Select new number = ".$limit);
-        $newNumbers = $this->db->select("* FROM `dial` WHERE `status` = 0 AND `action` = 0 AND `dialcount` < 3 ORDER BY `dialcount` ASC LIMIT ".$limit);
+        $newNumbers = $this->db->select("* FROM `dial` WHERE `status` = 0 AND `action` = 0 AND `dialcount` < ".$this->maxRecallCount." ORDER BY `dialcount` ASC LIMIT ".$limit);
         $this->log->debug($this->db->query->last);
         //$this->log->debug($newNumbers);
         if($newNumbers == null){

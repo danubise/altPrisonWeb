@@ -13,6 +13,7 @@
 <table>
     <tr>
         <td>Запуск обзвона для  <?=$voicerecord['description']?></td>
+        <td>&nbsp;</td>
         <td><button class="btn btn-primary">Старт</button></td>
     </tr>
 </table>

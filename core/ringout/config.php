@@ -22,7 +22,7 @@ $config['soundepath']="/var/lib/asterisk/sounds/";
 $config['newmessagepath']="ringout/";
 $config['newmessagename']="newmessage";
 $config['newmessageext']=".wav";
-
+$config['maxRecallCount'] = 3; //максимальное количество попыток дозвона
 //$config['manager_login']="";
 //$config['manager_password']="";
 //$config['emailFrom']="";
