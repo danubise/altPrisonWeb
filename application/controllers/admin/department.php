@@ -101,25 +101,30 @@ class Department extends Core_controller {
     }
 
     public function addnumber(){
+        if( isset($_POST['deleteallphones']) )
+        {
+            $deleteSql ="DELETE FROM `phonenumbers` WHERE `groupid`='".$_POST['number']['groupid']."'";
+            $this->db->query($deleteSql);
+        }
         if(trim($_POST['number']['phone']) != ""){
             if (strpos($_POST['number']['phone'],",") === false && trim($_POST['number']['phone']) != "" && ctype_digit($_POST['number']['phone'])){
                 $groupid = $this->db->insert("phonenumbers", $_POST['number']);
             }else{
-//                $edelveys="";
-//                if(isset($_POST['number']['edelveys'])){
-//                    $edelveys=$_POST['number']['edelveys'];
-//                }
-//                $numbers=explode(",",$_POST['number']['phone']);
-//                foreach($numbers as $key=>$number){
-//                    $number=trim($number);
-//                    if( $number != "" && ctype_digit($number)){
-//                        $this->db->insert("phonenumbers", array(
-//                            'edelveys'=>$edelveys,
-//                            'phone'=> $number,
-//                            'groupid'=>$_POST['number']['groupid']
-//                            ));
-//                        }
-//                }
+                $edelveys="";
+                if(isset($_POST['number']['edelveys'])){
+                    $edelveys=$_POST['number']['edelveys'];
+                }
+                $numbers=explode(",",$_POST['number']['phone']);
+                foreach($numbers as $key=>$number){
+                    $number=trim($number);
+                    if( $number != "" && ctype_digit($number)){
+                        $this->db->insert("phonenumbers", array(
+                            'edelveys'=>$edelveys,
+                            'phone'=> $number,
+                            'groupid'=>$_POST['number']['groupid']
+                            ));
+                        }
+                }
             }
         }
         $this->edit($_POST['number']['groupid']);
